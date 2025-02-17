@@ -1,0 +1,1 @@
+from inf_segformer import SegmentationInferencePipeline
