@@ -1,1 +1,1 @@
-from inf_segformer import SegmentationInferencePipeline
+from inference.inf_segformer import SegmentationInferencePipeline

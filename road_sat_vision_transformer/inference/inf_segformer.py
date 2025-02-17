@@ -30,7 +30,7 @@ class SegmentationInferencePipeline:
 
     def __init__(
         self,
-        model_name: str = 'nvidia/segformer-b1-finetuned-ade-512-512',
+        model_name: str = 'road_sat_vision_transformer/models/checkpoints/fine-tuned-segformer-b1-27epoch-lre-4-slr-09',
         num_labels: int = 2,
         ignore_mismatched_sizes: bool = True,
         transform: Optional[transforms.Compose] = None
