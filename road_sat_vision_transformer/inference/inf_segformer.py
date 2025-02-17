@@ -52,8 +52,13 @@ class SegmentationInferencePipeline:
             num_labels=num_labels,
             ignore_mismatched_sizes=ignore_mismatched_sizes
         )
-        # Determine device from model parameters.
-        self.device = next(self.model.parameters()).device if next(self.model.parameters(), None) is not None else torch.device("cpu")
+
+        first_param = next(iter(self.model.parameters()), None)
+        if first_param is not None:
+            self.device = first_param.device
+        else:
+            self.device = torch.device("cpu")
+            
         self.model.eval()  # Set the model to evaluation mode
 
         # Use provided transform or default inference transforms (resizes to 512x512).
