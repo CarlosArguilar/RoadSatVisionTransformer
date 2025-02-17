@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import imageio
 from PIL import Image
 
-from models import get_segformer
+from road_sat_vision_transformer.models import get_segformer
 
 # Set up logging
 logger = logging.getLogger(__name__)
