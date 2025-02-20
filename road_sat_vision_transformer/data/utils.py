@@ -16,6 +16,10 @@ def create_collate_fn(image_processor: "SegformerImageProcessor") -> Callable:
             segmentation_maps=list(masks), 
             return_tensors="pt"
         )
+
+        # labels are being outputed as {0,255} instead of {0,1}
+        inputs["labels"] = (inputs["labels"] > 0).long()  # Ensure labels are {0, 1}
+        
         # Assumes the returned dict contains keys "pixel_values" and "labels"
         return inputs["pixel_values"], inputs["labels"]
     return collate_fn
