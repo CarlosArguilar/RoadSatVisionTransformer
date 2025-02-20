@@ -6,6 +6,19 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 import matplotlib.pyplot as plt
 
+
+# Define a custom collate function to batch process using the feature extractor
+def create_collate_fn(feature_extractor):
+    def collate_fn(batch):
+        images, masks = zip(*batch)
+        # The feature extractor will resize, normalize, and convert the list into tensors.
+        inputs = feature_extractor(images=list(images), segmentation_maps=list(masks), return_tensors="pt")
+        return inputs["pixel_values"], inputs["labels"]
+    return collate_fn
+
+###############################################################
+##################
+
 MEAN_IMGNET = [0.485, 0.456, 0.406] # ImageNet mean
 STD_IMGNET = [0.229, 0.224, 0.225]  # ImageNet std
 
