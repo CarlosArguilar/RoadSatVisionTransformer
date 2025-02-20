@@ -6,15 +6,20 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 import matplotlib.pyplot as plt
 
-
-# Define a custom collate function to batch process using the feature extractor
-def create_collate_fn(feature_extractor):
+# Define a custom collate function to batch process using the image processor
+def create_collate_fn(image_processor: "SegformerImageProcessor") -> Callable:
     def collate_fn(batch):
         images, masks = zip(*batch)
-        # The feature extractor will resize, normalize, and convert the list into tensors.
-        inputs = feature_extractor(images=list(images), segmentation_maps=list(masks), return_tensors="pt")
+        # The image processor will resize, normalize, and convert the list into tensors.
+        inputs = image_processor.preprocess(
+            images=list(images), 
+            segmentation_maps=list(masks), 
+            return_tensors="pt"
+        )
+        # Assumes the returned dict contains keys "pixel_values" and "labels"
         return inputs["pixel_values"], inputs["labels"]
     return collate_fn
+
 
 ###############################################################
 ##################

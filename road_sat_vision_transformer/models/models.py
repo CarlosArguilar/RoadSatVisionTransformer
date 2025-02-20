@@ -1,8 +1,8 @@
 import torch
 from typing import Tuple
-from transformers import SegformerForSemanticSegmentation, SegformerFeatureExtractor
+from transformers import SegformerForSemanticSegmentation, SegformerImageProcessor
 
-def get_segformer(*args, **kwargs) -> Tuple[SegformerForSemanticSegmentation, SegformerFeatureExtractor]:
+def get_segformer(*args, **kwargs) -> Tuple[SegformerForSemanticSegmentation, SegformerImageProcessor]:
     # Device configuration
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -10,7 +10,7 @@ def get_segformer(*args, **kwargs) -> Tuple[SegformerForSemanticSegmentation, Se
     segformer = SegformerForSemanticSegmentation.from_pretrained(*args, **kwargs)
     segformer.to(device)
 
-    # Load the corresponding feature extractor
-    feature_extractor = SegformerFeatureExtractor.from_pretrained(*args, **kwargs)
+    # Load the corresponding image processor
+    image_processor = SegformerImageProcessor.from_pretrained(*args, **kwargs)
 
-    return segformer, feature_extractor
+    return segformer, image_processor
