@@ -11,6 +11,6 @@ def get_segformer(*args, **kwargs) -> Tuple[SegformerForSemanticSegmentation, Se
     segformer.to(device)
 
     # Load the corresponding image processor
-    image_processor = SegformerImageProcessor.from_pretrained(*args, **kwargs)
+    #image_processor = SegformerImageProcessor.from_pretrained(*args, **kwargs)
 
-    return segformer, image_processor
+    return segformer
